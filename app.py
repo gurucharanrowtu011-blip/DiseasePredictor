@@ -6,7 +6,7 @@ import joblib
 # LOAD MODELS
 # =========================
 diabetes_model = joblib.load("diabetes_model.pkl")
-diabetes_scaler = joblib.load("scaler.pkl")
+diabetes_scaler = joblib.load("diabetes_scaler.pkl")
 
 heart_model = joblib.load("heart_model.pkl")
 heart_scaler = joblib.load("heart_scaler.pkl")
