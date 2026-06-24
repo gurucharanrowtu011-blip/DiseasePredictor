@@ -31,12 +31,37 @@ disease = st.sidebar.radio(
     ["Diabetes", "Heart Disease", "Liver Disease", "Kidney Disease"]
 )
 
+import streamlit.components.v1 as components
+
+components.html("""
+<script>
+document.addEventListener('keydown', function(e) {
+    const inputs = window.parent.document.querySelectorAll('input');
+    const active = window.parent.document.activeElement;
+    const index = Array.from(inputs).indexOf(active);
+
+    if (e.key === 'ArrowDown') {
+        if (index >= 0 && index < inputs.length - 1) {
+            inputs[index + 1].focus();
+            e.preventDefault();
+        }
+    }
+
+    if (e.key === 'ArrowUp') {
+        if (index > 0) {
+            inputs[index - 1].focus();
+            e.preventDefault();
+        }
+    }
+});
+</script>
+""", height=0)
+
 # =========================
 # DIABETES
 # =========================
 def diabetes_page():
     st.header("Diabetes Prediction")
-    with st.form("diabetes_form"):
     pregnancies = st.text_input("Pregnancies", value="")
     glucose = st.text_input("Glucose", value="")
     blood_pressure = st.text_input("Blood Pressure", value="")
@@ -77,7 +102,6 @@ def diabetes_page():
 # =========================
 def heart_page():
     st.header("Heart Disease Prediction")
-    with st.form("heart_form"):
     age = st.text_input("Age", value="")
     sex = st.text_input("Sex (0 = Female, 1 = Male)", value="")
     cp = st.text_input("Chest Pain Type", value="")
@@ -128,7 +152,6 @@ def heart_page():
 # =========================
 def liver_page():
     st.header("Liver Disease Prediction")
-    with st.form("liver_form"):
     age = st.text_input("Age", value="")
     gender = st.text_input("Gender (0 = Female, 1 = Male)", value="")
     total_bilirubin = st.text_input("Total Bilirubin", value="")
@@ -175,7 +198,6 @@ def liver_page():
 # =========================
 def kidney_page():
     st.header("Kidney Disease Prediction")
-    with st.form("kidney_form"):
     Age = st.text_input("Age", value="")
     Blood_Pressure = st.text_input("Blood Pressure", value="")
     Specific_Gravity = st.text_input("Specific Gravity", value="")
