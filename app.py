@@ -18,12 +18,12 @@ kidney_model = joblib.load("kidney_model.pkl")
 kidney_scaler = joblib.load("kidney_scaler.pkl")
 
 # =========================
-# APP TITLE
+# TITLE
 # =========================
 st.title("AI-Powered Multiple Disease Prediction System")
 
 # =========================
-# SIDEBAR NAVIGATION
+# SIDEBAR
 # =========================
 st.sidebar.title("Navigation")
 disease = st.sidebar.radio(
@@ -31,47 +31,25 @@ disease = st.sidebar.radio(
     ["Diabetes", "Heart Disease", "Liver Disease", "Kidney Disease"]
 )
 
-import streamlit.components.v1 as components
-
-components.html("""
-<script>
-document.addEventListener('keydown', function(e) {
-    const inputs = window.parent.document.querySelectorAll('input');
-    const active = window.parent.document.activeElement;
-    const index = Array.from(inputs).indexOf(active);
-
-    if (e.key === 'ArrowDown') {
-        if (index >= 0 && index < inputs.length - 1) {
-            inputs[index + 1].focus();
-            e.preventDefault();
-        }
-    }
-
-    if (e.key === 'ArrowUp') {
-        if (index > 0) {
-            inputs[index - 1].focus();
-            e.preventDefault();
-        }
-    }
-});
-</script>
-""", height=0)
-
 # =========================
-# DIABETES
+# DIABETES 
 # =========================
 def diabetes_page():
     st.header("Diabetes Prediction")
-    pregnancies = st.text_input("Pregnancies", value="")
-    glucose = st.text_input("Glucose", value="")
-    blood_pressure = st.text_input("Blood Pressure", value="")
-    skin_thickness = st.text_input("Skin Thickness", value="")
-    insulin = st.text_input("Insulin", value="")
-    bmi = st.text_input("BMI", value="")
-    dpf = st.text_input("Diabetes Pedigree Function", value="")
-    age = st.text_input("Age", value="")
 
-    if st.button("Predict Diabetes"):
+    with st.form("diabetes_form"):
+        pregnancies = st.text_input("Pregnancies")
+        glucose = st.text_input("Glucose")
+        blood_pressure = st.text_input("Blood Pressure")
+        skin_thickness = st.text_input("Skin Thickness")
+        insulin = st.text_input("Insulin")
+        bmi = st.text_input("BMI")
+        dpf = st.text_input("Diabetes Pedigree Function")
+        age = st.text_input("Age")
+
+        submitted = st.form_submit_button("Predict")
+
+    if submitted:
         try:
             pregnancies = float(pregnancies)
             glucose = float(glucose)
@@ -98,23 +76,24 @@ def diabetes_page():
 
 
 # =========================
-# HEART
+# HEART 
 # =========================
 def heart_page():
     st.header("Heart Disease Prediction")
-    age = st.text_input("Age", value="")
-    sex = st.text_input("Sex (0 = Female, 1 = Male)", value="")
-    cp = st.text_input("Chest Pain Type", value="")
-    trestbps = st.text_input("Resting BP", value="")
-    chol = st.text_input("Cholesterol", value="")
-    fbs = st.text_input("FBS", value="")
-    restecg = st.text_input("Rest ECG", value="")
-    thalach = st.text_input("Max Heart Rate", value="")
-    exang = st.text_input("Exercise Angina", value="")
-    oldpeak = st.text_input("Old Peak", value="")
-    slope = st.text_input("Slope", value="")
-    ca = st.text_input("Major Vessels", value="")
-    thal = st.text_input("Thal", value="")
+
+    age = st.text_input("Age")
+    sex = st.text_input("Sex (0 = Female, 1 = Male)")
+    cp = st.text_input("Chest Pain Type")
+    trestbps = st.text_input("Resting BP")
+    chol = st.text_input("Cholesterol")
+    fbs = st.text_input("FBS")
+    restecg = st.text_input("Rest ECG")
+    thalach = st.text_input("Max Heart Rate")
+    exang = st.text_input("Exercise Angina")
+    oldpeak = st.text_input("Old Peak")
+    slope = st.text_input("Slope")
+    ca = st.text_input("Major Vessels")
+    thal = st.text_input("Thal")
 
     if st.button("Predict Heart Disease"):
         try:
@@ -152,16 +131,17 @@ def heart_page():
 # =========================
 def liver_page():
     st.header("Liver Disease Prediction")
-    age = st.text_input("Age", value="")
-    gender = st.text_input("Gender (0 = Female, 1 = Male)", value="")
-    total_bilirubin = st.text_input("Total Bilirubin", value="")
-    direct_bilirubin = st.text_input("Direct Bilirubin", value="")
-    alkaline_phosphotase = st.text_input("Alkaline Phosphotase", value="")
-    alamine_aminotransferase = st.text_input("ALT", value="")
-    aspartate_aminotransferase = st.text_input("AST", value="")
-    total_proteins = st.text_input("Total Proteins", value="")
-    albumin = st.text_input("Albumin", value="")
-    agr = st.text_input("A/G Ratio", value="")
+
+    age = st.text_input("Age")
+    gender = st.text_input("Gender (0 = Female, 1 = Male)")
+    total_bilirubin = st.text_input("Total Bilirubin")
+    direct_bilirubin = st.text_input("Direct Bilirubin")
+    alkaline_phosphotase = st.text_input("Alkaline Phosphotase")
+    alamine_aminotransferase = st.text_input("ALT")
+    aspartate_aminotransferase = st.text_input("AST")
+    total_proteins = st.text_input("Total Proteins")
+    albumin = st.text_input("Albumin")
+    agr = st.text_input("A/G Ratio")
 
     if st.button("Predict Liver Disease"):
         try:
@@ -194,38 +174,39 @@ def liver_page():
 
 
 # =========================
-# KIDNEY
+# KIDNEY 
 # =========================
 def kidney_page():
     st.header("Kidney Disease Prediction")
-    Age = st.text_input("Age", value="")
-    Blood_Pressure = st.text_input("Blood Pressure", value="")
-    Specific_Gravity = st.text_input("Specific Gravity", value="")
-    Albumin_Level = st.text_input("Albumin Level", value="")
-    Sugar_Level = st.text_input("Sugar Level", value="")
 
-    Red_Blood_Cells = st.text_input("Red Blood Cells", value="")
-    Pus_Cells = st.text_input("Pus Cells", value="")
-    Pus_Cells_Clumps = st.text_input("Pus Clumps", value="")
-    Bacteria = st.text_input("Bacteria", value="")
+    Age = st.text_input("Age")
+    Blood_Pressure = st.text_input("Blood Pressure")
+    Specific_Gravity = st.text_input("Specific Gravity")
+    Albumin_Level = st.text_input("Albumin Level")
+    Sugar_Level = st.text_input("Sugar Level")
 
-    Random_Blood_Glucose = st.text_input("Glucose", value="")
-    Blood_Urea = st.text_input("Urea", value="")
-    Serum_Creatinine = st.text_input("Creatinine", value="")
-    Sodium = st.text_input("Sodium", value="")
-    Potassium = st.text_input("Potassium", value="")
+    Red_Blood_Cells = st.text_input("Red Blood Cells")
+    Pus_Cells = st.text_input("Pus Cells")
+    Pus_Cells_Clumps = st.text_input("Pus Clumps")
+    Bacteria = st.text_input("Bacteria")
 
-    Hemoglobin = st.text_input("Hemoglobin", value="")
-    Packed_Cell_Volume = st.text_input("PCV", value="")
-    WBC = st.text_input("WBC", value="")
-    RBC = st.text_input("RBC", value="")
+    Random_Blood_Glucose = st.text_input("Glucose")
+    Blood_Urea = st.text_input("Urea")
+    Serum_Creatinine = st.text_input("Creatinine")
+    Sodium = st.text_input("Sodium")
+    Potassium = st.text_input("Potassium")
 
-    Hypertension = st.text_input("Hypertension", value="")
-    Diabetes_Mellitus = st.text_input("Diabetes Mellitus", value="")
-    CAD = st.text_input("Coronary Artery Disease", value="")
-    Appetite = st.text_input("Appetite", value="")
-    Pedal_Edema = st.text_input("Pedal Edema", value="")
-    Anemia = st.text_input("Anemia", value="")
+    Hemoglobin = st.text_input("Hemoglobin")
+    Packed_Cell_Volume = st.text_input("PCV")
+    WBC = st.text_input("WBC")
+    RBC = st.text_input("RBC")
+
+    Hypertension = st.text_input("Hypertension")
+    Diabetes_Mellitus = st.text_input("Diabetes Mellitus")
+    CAD = st.text_input("Coronary Artery Disease")
+    Appetite = st.text_input("Appetite")
+    Pedal_Edema = st.text_input("Pedal Edema")
+    Anemia = st.text_input("Anemia")
 
     if st.button("Predict Kidney Disease"):
         try:
